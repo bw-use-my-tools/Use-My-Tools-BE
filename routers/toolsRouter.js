@@ -63,7 +63,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   console.log('req.body-tool-price-bod', req.body.toolName, req.body.price, req.body.userId);
   if (!req.body.toolName || !req.body.price || !req.body.userId) {
-    res.status(400).json({ error: "must enter tool, price, and user_id" });
+    res.status(400).json({ error: "must specify a toolName, price, and userId on the request object" });
   } else {
     try {
       const tool = await Tools.create(req.body);
@@ -98,8 +98,8 @@ router.put("/:id", async (req, res) => {
     }
   }
 });
-
-router.delete("/:id", deleteRentalRequest, async (req, res) => {
+//deleteRentalRequest as 2nd argument in delete
+router.delete("/:id", async (req, res) => {
   try {
     const tool = await Tools.remove(req.params.id);
     if (tool > 0) {
