@@ -1,8 +1,6 @@
 const router = require("express").Router();
 const Tools = require("../data/helpers/tools-model");
 
-
-
 //middleware for rental Deletion
 const deleteRentalRequest = async function (req, res, next) {
   try {
@@ -76,25 +74,38 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  if (!req.body.tool || !req.body.price || !req.body.userId) {
-    res.status(400).json({ error: "must enter tool, price, and user_id" });
+  console.log('req.body', req.body, req.params.id);
+  if (!req.body.toolName || !req.body.price || !req.body.userId) {
+    res.status(400).json({ error: "must enter toolName, price, and userId" });
   } else {
     try {
-      const count = await db("tools")
-        .where({ id: req.params.id })
-        .update(req.body);
+      // const count = await db("tools")
+      //   .where({ id: req.params.id })
+      //   .update(req.body);
 
-      if (count > 0) {
-        const tool = await db("tools")
-          .where({ id: req.params.id })
-          .first();
+      const tool = await Tools.update(req.body, req.params.id);
+      console.log('tool returned from the db', tool);
 
+      if (tool) {
         res.status(200).json(tool);
       } else {
         res.status(404).json({ error: "tool not found" });
       }
+      ////////
+
+      // const count = await Tools.update(req.body, req.params.id)
+
+      // if (count > 0) {
+      //   const tool = await db("tools")
+      //     .where({ id: req.params.id })
+      //     .first();
+
+      //   res.status(200).json(tool);
+      // } else {
+      //   res.status(404).json({ error: "tool not found" });
+      // }
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).json(error.message);
     }
   }
 });

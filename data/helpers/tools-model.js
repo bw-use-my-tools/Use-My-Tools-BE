@@ -44,9 +44,12 @@ function remove(id) {
 }
 
 async function update(item, id) {
+  console.log(item, id);
   const editedTool = await db("tools")
     .where({ id })
     .update(item);
+  console.log('edited tool from database', editedTool);
+
   if (editedTool) {
     const tool = await findById(id);
     return tool;
