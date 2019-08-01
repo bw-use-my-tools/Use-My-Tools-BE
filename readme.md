@@ -30,15 +30,17 @@ all fields required
 https://rent-mytools.herokuapp.com/api/tools
 
 Example
-user_id, tool, and price are required fields
-{
-    user_id:"1",
-    tool:"hammer",
-    price:"10.50",
-    description:"Ya hit stuff, it gets nailed",
-    image_url:"http://imgurl.com",
-    is_rented:"false"
+userId, toolName, and price are required fields. If one of these is not specified in the request object, the tool will NOT be added to the database.
+
+{ 
+ "userId":"11", 
+ "toolName":"saw", 
+ "price":"10.50",
+ "description":"see saw, slicin' and dicin'", 
+ "imageUrl":"http://imgurl.com", 
+ "isRented": 0
 }
+
 
 1. Add a tool to rented list
 https://rent-mytools.herokuapp.com/api/toolrental
@@ -57,7 +59,7 @@ All fields required (renter_id === user_id)
 http://https://rent-mytools.herokuapp.com/api/tools
 
 1. Get tool by ID
-(:id === tool_id)
+(:id === toolId)
 http://https://rent-mytools.herokuapp.com/api/tools/:id
 
 1. Get all users
@@ -69,8 +71,6 @@ http://https://rent-mytools.herokuapp.com/api/users/:id
 
 1. Get all rented tools
 http://https://rent-mytools.herokuapp.com/api/toolrental
-
-
 
 **Delete requests
 
@@ -111,12 +111,4 @@ user_id, tool, and price are required fields
     description:"Ya hit stuff, it gets nailed",
     image_url:"http://imgurl.com",
     is_rented:false
-
-   
 }
-
-
-
-
-
-
