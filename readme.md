@@ -29,9 +29,10 @@ all fields required
 1. Add a tool
 https://rent-mytools.herokuapp.com/api/tools
 
-Example
+<h2>Example</h2>
 userId, toolName, and price are required fields. If one of these is not specified in the request object, the tool will NOT be added to the database.
 
+<code>
 { 
  "userId":"11", 
  "toolName":"saw", 
@@ -40,6 +41,7 @@ userId, toolName, and price are required fields. If one of these is not specifie
  "imageUrl":"http://imgurl.com", 
  "isRented": 0
 }
+</code>
 
 
 1. Add a tool to rented list
