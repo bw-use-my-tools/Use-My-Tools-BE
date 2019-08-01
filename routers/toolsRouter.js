@@ -4,15 +4,15 @@ const Tools = require("../data/helpers/tools-model");
 
 
 //middleware for rental Deletion
-const deleteRentalRequest = async function(req, res, next) {
+const deleteRentalRequest = async function (req, res, next) {
   try {
     const tool_id = req.params.id;
-    const lentTool = await rented-tools.findBy({ tool_id });
+    const lentTool = await rented - tools.findBy({ tool_id });
     if (!lentTool) {
       next();
     } else {
       try {
-        const tool = await rented-tools.remove(lentTool.id);
+        const tool = await rented - tools.remove(lentTool.id);
         if (tool > 0) {
           res.status(200).json({ message: "tool request has been deleted!" });
           next();
@@ -44,7 +44,7 @@ router.get("/", (req, res) => {
 
 
 //get tool by ID
-router.get("/:id",  async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const tool = await Tools.findById(req.params.id);
 
@@ -60,8 +60,9 @@ router.get("/:id",  async (req, res) => {
   }
 });
 
-router.post("/",  async (req, res) => {
-  if (!req.body.tool || !req.body.price || !req.body.lender_id) {
+router.post("/", async (req, res) => {
+  console.log('req.body-tool-price-bod', req.body.toolName, req.body.price, req.body.userId);
+  if (!req.body.toolName || !req.body.price || !req.body.userId) {
     res.status(400).json({ error: "must enter tool, price, and user_id" });
   } else {
     try {
@@ -69,13 +70,13 @@ router.post("/",  async (req, res) => {
 
       res.status(201).json({ tool });
     } catch (error) {
-      res.status(500).json({ error });
+      res.status(500).json({ error: error.message });
     }
   }
 });
 
-router.put("/:id",  async (req, res) => {
-  if (!req.body.tool || !req.body.price || !req.body.lender_id) {
+router.put("/:id", async (req, res) => {
+  if (!req.body.tool || !req.body.price || !req.body.userId) {
     res.status(400).json({ error: "must enter tool, price, and user_id" });
   } else {
     try {
